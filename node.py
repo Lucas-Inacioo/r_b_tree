@@ -6,7 +6,6 @@ que representa a estrutura de um nó de uma árvore rubro-negra.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
 
 RED = True
 BLACK = False
@@ -59,60 +58,59 @@ class Node:
         Retorna a chave do nó.
         """
         return self._key
-    
+
     @property
     def parent(self) -> Node:
         """
         Retorna o nó pai.
         """
         return self._parent
-    
+
     @parent.setter
     def parent(self, parent: Node) -> None:
         """
         Define o nó pai.
         """
         self._parent = parent
-    
+
     @property
     def left(self) -> Node:
         """
         Retorna o nó filho à esquerda.
         """
         return self._left
-    
+
     @left.setter
     def left(self, left: Node) -> None:
         """
         Define o nó filho à esquerda.
         """
         self._left = left
-    
+
     @property
     def right(self) -> Node:
         """
         Retorna o nó filho à direita.
         """
         return self._right
-    
+
     @right.setter
     def right(self, right: Node) -> None:
         """
         Define o nó filho à direita.
         """
         self._right = right
-    
+
     @property
     def color(self) -> bool:
         """
         Retorna a cor do nó.
         """
         return self._color
-    
+
     @color.setter
     def color(self, color: bool) -> None:
         """
         Define a cor do nó.
         """
         self._color = color
-

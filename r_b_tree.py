@@ -4,8 +4,6 @@ Módulo que contém a classe RBTree, que representa uma árvore rubro-negra.
 
 from node import Node, NodeStructure, RED, BLACK
 
-from typing import Any
-
 class RBTree:
     """
     Classe que representa uma árvore rubro-negra.
@@ -55,23 +53,23 @@ class RBTree:
         Parâmetros:
         x: Node - Nó a ser rotacionado.
         """
-        y = x._right
-        x._right = y._left
+        y = x.right
+        x.right = y.left
 
-        if y._left != self._nil:
-            y._left._parent = x
+        if y.left != self.nil:
+            y.left.parent = x
 
-        y._parent = x._parent
+        y.parent = x.parent
 
-        if x._parent == self._nil:
-            self._root = y
-        elif x == x._parent._left:
-            x._parent._left = y
+        if x.parent == self.nil:
+            self.root = y
+        elif x == x.parent.left:
+            x.parent.left = y
         else:
-            x._parent._right = y
+            x.parent.right = y
 
-        y._left = x
-        x._parent = y
+        y.left = x
+        x.parent = y
 
 
     def _right_rotate(self, y: Node) -> None:
@@ -81,23 +79,23 @@ class RBTree:
         Parâmetros:
         y: Node - Nó a ser rotacionado.
         """
-        x = y._left
-        y._left = x._right
+        x = y.left
+        y.left = x.right
 
-        if x._right != self._nil:
-            x._right._parent = y
+        if x.right != self.nil:
+            x.right.parent = y
 
-        x._parent = y._parent
+        x.parent = y.parent
 
-        if y._parent == self._nil:
-            self._root = x
-        elif y == y._parent._right:
-            y._parent._right = x
+        if y.parent == self.nil:
+            self.root = x
+        elif y == y.parent.right:
+            y.parent.right = x
         else:
-            y._parent._left = x
+            y.parent.left = x
 
-        x._right = y
-        y._parent = x
+        x.right = y
+        y.parent = x
 
     def _insert_fixup(self, z: Node) -> None:
         """
@@ -106,36 +104,36 @@ class RBTree:
         Parâmetros:
         z: Node - Nó a ser corrigido.
         """
-        while z._parent._color == RED and z._parent != self._nil:
-            if z._parent == z._parent._parent._left:
-                y = z._parent._parent._right
-                if y._color == RED:
-                    z._parent._color = BLACK
-                    y._color = BLACK
-                    z._parent._parent._color = RED
-                    z = z._parent._parent
+        while z.parent.color == RED and z.parent != self.nil:
+            if z.parent == z.parent.parent.left:
+                y = z.parent.parent.right
+                if y.color == RED:
+                    z.parent.color = BLACK
+                    y.color = BLACK
+                    z.parent.parent.color = RED
+                    z = z.parent.parent
                 else:
-                    if z == z._parent._right:
-                        z = z._parent
+                    if z == z.parent.right:
+                        z = z.parent
                         self._left_rotate(z)
-                    z._parent._color = BLACK
-                    z._parent._parent._color = RED
-                    self._right_rotate(z._parent._parent)
+                    z.parent.color = BLACK
+                    z.parent.parent.color = RED
+                    self._right_rotate(z.parent.parent)
             else:
-                y = z._parent._parent._left
-                if y._color == RED:
-                    z._parent._color = BLACK
-                    y._color = BLACK
-                    z._parent._parent._color = RED
-                    z = z._parent._parent
+                y = z.parent.parent.left
+                if y.color == RED:
+                    z.parent.color = BLACK
+                    y.color = BLACK
+                    z.parent.parent.color = RED
+                    z = z.parent.parent
                 else:
-                    if z == z._parent._left:
-                        z = z._parent
+                    if z == z.parent.left:
+                        z = z.parent
                         self._right_rotate(z)
-                    z._parent._color = BLACK
-                    z._parent._parent._color = RED
-                    self._left_rotate(z._parent._parent)
-        self._root._color = BLACK
+                    z.parent.color = BLACK
+                    z.parent.parent.color = RED
+                    self._left_rotate(z.parent.parent)
+        self.root.color = BLACK
 
     def traverse_in_order(self, x: Node, alt: int = 0) -> None:
         """
@@ -146,6 +144,27 @@ class RBTree:
         alt: int - Altura atual.
         """
         if x != self._nil:
-            self.traverse_in_order(x._right, alt + 1)
+            self.traverse_in_order(x.right, alt + 1)
             print(f'{3 * alt * " "}{x}')
-            self.traverse_in_order(x._left, alt + 1)
+            self.traverse_in_order(x.left, alt + 1)
+
+    @property
+    def root(self) -> Node:
+        """
+        Retorna a raiz da árvore.
+        """
+        return self._root
+
+    @root.setter
+    def root(self, root: Node) -> None:
+        """
+        Define a raiz da árvore.
+        """
+        self._root = root
+
+    @property
+    def nil(self) -> Node:
+        """
+        Retorna o nó nulo.
+        """
+        return self._nil

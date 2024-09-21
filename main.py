@@ -34,7 +34,7 @@ def main() -> None:
     tree.insert(50)
 
     # Imprime a árvore.
-    tree.traverse_in_order(tree._root)
+    tree.traverse_in_order(tree.root)
 
 if __name__ == '__main__':
     main()
