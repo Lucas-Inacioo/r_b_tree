@@ -2,7 +2,7 @@
 Módulo que contém a classe RBTree, que representa uma árvore rubro-negra.
 """
 
-from node import Node, NodeStructure, RED, BLACK
+from src.node import Node, NodeStructure, RED, BLACK
 
 class RBTree:
     """
