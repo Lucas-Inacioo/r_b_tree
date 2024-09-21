@@ -1,36 +1,59 @@
 """
-    Implementação de uma árvore rubro-negra em Python.
-    Feito por Lucas Gomes Inacio.
-    Número USP: 12562091
-    
-    Usando extensão Pylint (ms-python.pylint) no Visual Studio Code.
-    https://pylint.readthedocs.io/en/latest/index.html
-    
-    Usando Github Copilot para auxiliar na escrita do código.
-
-    Histórico de versões:
-    https://github.com/Lucas-Inacioo/r_b_tree
+Módulo que contém a classe RBTree, que representa uma árvore rubro-negra.
 """
 
-from __future__ import annotations
-import dataclasses
+from node import Node, NodeStructure, RED, BLACK
 
-@dataclasses.dataclass
-class Node:
+class RBTree:
     """
-    Classe que representa um nó de uma árvore rubro-negra.
-    Utilizado dataclasses por não precisar de métodos especiais.
-    """
-    key: int
-    color: bool
-    parent: Node
-    left: Node
-    right: Node
+    Classe que representa uma árvore rubro-negra.
 
-def main():
+    Atributos:
     """
-    Função principal, deve testar a implementação da árvore rubro-negra.
-    """
+    def __init__(self) -> None:
+        """
+        Inicializa a árvore rubro-negra.
+        """
+        self._nil = Node(NodeStructure(None, None, None, None, BLACK))
+        self._root = self._nil
 
-if __name__ == '__main__':
-    main()
+    def insert(self, key: int) -> None:
+        """
+        Insere um nó na árvore rubro-negra.
+
+        Parâmetros:
+        key: int - Valor do nó a ser inserido.
+        """
+
+    def _left_rotate(self, x: Node) -> None:
+        """
+        Rotaciona a árvore à esquerda.
+
+        Parâmetros:
+        x: Node - Nó a ser rotacionado.
+        """
+
+    def _right_rotate(self, x: Node) -> None:
+        """
+        Rotaciona a árvore à direita.
+
+        Parâmetros:
+        x: Node - Nó a ser rotacionado.
+        """
+
+    def _insert_fixup(self, z: Node) -> None:
+        """
+        Corrige a árvore após a inserção de um nó.
+
+        Parâmetros:
+        z: Node - Nó a ser corrigido.
+        """
+
+    def _traverse_in_order(self, x: Node, alt: int = 0) -> None:
+        """
+        Percorre a árvore em ordem.
+
+        Parâmetros:
+        x: Node - Nó atual.
+        alt: int - Altura atual.
+        """
