@@ -8,7 +8,7 @@
 
     Usando Github Copilot para auxiliar na escrita do código.
 
-    Histórico de versões:
+    Histórico de versões e código melhor formatado em arquivos distintos:
     https://github.com/Lucas-Inacioo/r_b_tree
 """
 

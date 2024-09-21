@@ -47,10 +47,11 @@ class Node:
 
     def __str__(self) -> str:
         """
-        Retorna uma representação em string do nó, incluindo chave e cor.
+        Retorna uma representação em string do nó, com a chave e a cor do terminal.
         """
-        color = "Red" if self._color else "Black"
-        return f'Node({self._key}, {color})'
+        color_code = "\033[91m" if self._color else "\033[30m"  # 91 vermelho, 30 preto
+        reset_code = "\033[0m"  # Resetar a cor do terminal
+        return f'{color_code}{self._key}{reset_code}'
 
     @property
     def key(self) -> int:
