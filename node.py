@@ -53,13 +53,66 @@ class Node:
         color = "Red" if self._color else "Black"
         return f'Node({self._key}, {color})'
 
-    def __getattribute__(self, name: str) -> Any:
+    @property
+    def key(self) -> int:
         """
-        Retorna o valor de um atributo do nó.
+        Retorna a chave do nó.
+        """
+        return self._key
+    
+    @property
+    def parent(self) -> Node:
+        """
+        Retorna o nó pai.
+        """
+        return self._parent
+    
+    @parent.setter
+    def parent(self, parent: Node) -> None:
+        """
+        Define o nó pai.
+        """
+        self._parent = parent
+    
+    @property
+    def left(self) -> Node:
+        """
+        Retorna o nó filho à esquerda.
+        """
+        return self._left
+    
+    @left.setter
+    def left(self, left: Node) -> None:
+        """
+        Define o nó filho à esquerda.
+        """
+        self._left = left
+    
+    @property
+    def right(self) -> Node:
+        """
+        Retorna o nó filho à direita.
+        """
+        return self._right
+    
+    @right.setter
+    def right(self, right: Node) -> None:
+        """
+        Define o nó filho à direita.
+        """
+        self._right = right
+    
+    @property
+    def color(self) -> bool:
+        """
+        Retorna a cor do nó.
+        """
+        return self._color
+    
+    @color.setter
+    def color(self, color: bool) -> None:
+        """
+        Define a cor do nó.
+        """
+        self._color = color
 
-        Parâmetros:
-        name: str - Nome do atributo.
-        """
-        if name in ['_key', '_parent', '_left', '_right', '_color']:
-            return object.__getattribute__(self, name)
-        raise AttributeError(f"O atributo '{name}' não existe no nó.")
