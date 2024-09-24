@@ -12,7 +12,7 @@
     https://github.com/Lucas-Inacioo/r_b_tree
 """
 
-from src.r_b_tree import RBTree
+from r_b_tree import RBTree
 
 def main() -> None:
     """

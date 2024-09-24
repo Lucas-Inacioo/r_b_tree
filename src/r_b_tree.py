@@ -1,8 +1,8 @@
 """
-Módulo que contém a classe RBTree, que representa uma árvore rubro-negra.
+    Módulo que contém a classe RBTree, que representa uma árvore rubro-negra.
 """
 
-from src.node import Node, NodeStructure, RED, BLACK
+from node import Node, NodeStructure, RED, BLACK
 
 class RBTree:
     """
@@ -56,12 +56,12 @@ class RBTree:
         y = x.right
         x.right = y.left
 
-        if y.left != self.nil:
+        if y.left != self._nil:
             y.left.parent = x
 
         y.parent = x.parent
 
-        if x.parent == self.nil:
+        if x.parent == self._nil:
             self.root = y
         elif x == x.parent.left:
             x.parent.left = y
@@ -82,12 +82,12 @@ class RBTree:
         x = y.left
         y.left = x.right
 
-        if x.right != self.nil:
+        if x.right != self._nil:
             x.right.parent = y
 
         x.parent = y.parent
 
-        if y.parent == self.nil:
+        if y.parent == self._nil:
             self.root = x
         elif y == y.parent.right:
             y.parent.right = x
@@ -104,7 +104,7 @@ class RBTree:
         Parâmetros:
         z: Node - Nó a ser corrigido.
         """
-        while z.parent.color == RED and z.parent != self.nil:
+        while z.parent.color == RED and z.parent != self._nil:
             if z.parent == z.parent.parent.left:
                 y = z.parent.parent.right
                 if y.color == RED:
