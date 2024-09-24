@@ -1,5 +1,8 @@
 """
     Módulo que contém a classe RBTree, que representa uma árvore rubro-negra.
+
+    Feito por Lucas Gomes Inacio.
+    Número USP: 12562091
 """
 
 from node import Node, NodeStructure, RED, BLACK

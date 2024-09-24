@@ -1,5 +1,8 @@
 """
     Testes para a implementação da árvore rubro-negra.
+
+    Feito por Lucas Gomes Inacio.
+    Número USP: 12562091
 """
 import sys
 import os

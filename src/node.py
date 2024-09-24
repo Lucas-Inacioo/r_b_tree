@@ -1,6 +1,9 @@
 """
-Módulo que contém a classe NodeStructure, 
-que representa a estrutura de um nó de uma árvore rubro-negra.
+    Módulo que contém a classe NodeStructure, 
+    que representa a estrutura de um nó de uma árvore rubro-negra.
+
+    Feito por Lucas Gomes Inacio.
+    Número USP: 12562091
 """
 
 from __future__ import annotations
