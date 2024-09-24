@@ -29,8 +29,7 @@ Este projeto tem como objetivo implementar uma árvore RB
     ```sh
     python src/main.py
     ```
-4. Alternativamente, visualize os testes realizados no diretório tests
-   Caso opte pelos testes, utilize o comando abaixo para instalar os pacotes necessários
+4. Alternativamente, visualize os testes realizados no diretório tests. Caso opte pelos testes, utilize o comando abaixo para instalar os pacotes necessários
     ```sh
     pip install -r .\requirements.txt
     ```
