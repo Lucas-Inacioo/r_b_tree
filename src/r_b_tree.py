@@ -65,7 +65,7 @@ class RBTree:
         y.parent = x.parent
 
         if x.parent == self._nil:
-            self.root = y
+            self._root = y
         elif x == x.parent.left:
             x.parent.left = y
         else:
@@ -73,7 +73,6 @@ class RBTree:
 
         y.left = x
         x.parent = y
-
 
     def _right_rotate(self, y: Node) -> None:
         """
@@ -91,7 +90,7 @@ class RBTree:
         x.parent = y.parent
 
         if y.parent == self._nil:
-            self.root = x
+            self._root = x
         elif y == y.parent.right:
             y.parent.right = x
         else:
@@ -107,7 +106,7 @@ class RBTree:
         Parâmetros:
         z: Node - Nó a ser corrigido.
         """
-        while z.parent.color == RED and z.parent != self._nil:
+        while z.parent.color == RED:
             if z.parent == z.parent.parent.left:
                 y = z.parent.parent.right
                 if y.color == RED:
@@ -136,7 +135,136 @@ class RBTree:
                     z.parent.color = BLACK
                     z.parent.parent.color = RED
                     self._left_rotate(z.parent.parent)
-        self.root.color = BLACK
+        self._root.color = BLACK
+
+    def remove(self, key: int) -> None:
+        """
+        Remove um nó da árvore rubro-negra.
+
+        Parâmetros:
+        key: int - Valor do nó a ser removido.
+        """
+        z = self._search(key)
+        if z == self._nil:
+            return
+        y = z
+        y_original_color = y.color
+        if z.left == self._nil:
+            x = z.right
+            self._transplant(z, z.right)
+        elif z.right == self._nil:
+            x = z.left
+            self._transplant(z, z.left)
+        else:
+            y = self._minimum(z.right)
+            y_original_color = y.color
+            x = y.right
+            if y.parent == z:
+                x.parent = y
+            else:
+                self._transplant(y, y.right)
+                y.right = z.right
+                y.right.parent = y
+            self._transplant(z, y)
+            y.left = z.left
+            y.left.parent = y
+            y.color = z.color
+        if y_original_color == BLACK:
+            self._remove_fixup(x)
+
+    def _transplant(self, u: Node, v: Node) -> None:
+        """
+        Substitui um nó por outro na árvore.
+
+        Parâmetros:
+        u: Node - Nó a ser substituído.
+        v: Node - Nó substituto.
+        """
+        if u.parent == self._nil:
+            self._root = v
+        elif u == u.parent.left:
+            u.parent.left = v
+        else:
+            u.parent.right = v
+        v.parent = u.parent
+
+    def _minimum(self, x: Node) -> Node:
+        """
+        Retorna o nó com o menor valor na árvore.
+
+        Parâmetros:
+        x: Node - Nó a ser verificado.
+        """
+        while x.left != self._nil:
+            x = x.left
+        return x
+
+    def _remove_fixup(self, x: Node) -> None:
+        """
+        Corrige a árvore após a remoção de um nó.
+
+        Parâmetros:
+        x: Node - Nó a ser corrigido
+        """
+        while x != self._root and x.color == BLACK:
+            if x == x.parent.left:
+                w = x.parent.right
+                if w.color == RED:
+                    w.color = BLACK
+                    x.parent.color = RED
+                    self._left_rotate(x.parent)
+                    w = x.parent.right
+                if w.left.color == BLACK and w.right.color == BLACK:
+                    w.color = RED
+                    x = x.parent
+                else:
+                    if w.right.color == BLACK:
+                        w.left.color = BLACK
+                        w.color = RED
+                        self._right_rotate(w)
+                        w = x.parent.right
+                    w.color = x.parent.color
+                    x.parent.color = BLACK
+                    w.right.color = BLACK
+                    self._left_rotate(x.parent)
+                    x = self._root
+            else:
+                w = x.parent.left
+                if w.color == RED:
+                    w.color = BLACK
+                    x.parent.color = RED
+                    self._right_rotate(x.parent)
+                    w = x.parent.left
+                if w.right.color == BLACK and w.left.color == BLACK:
+                    w.color = RED
+                    x = x.parent
+                else:
+                    if w.left.color == BLACK:
+                        w.right.color = BLACK
+                        w.color = RED
+                        self._left_rotate(w)
+                        w = x.parent.left
+                    w.color = x.parent.color
+                    x.parent.color = BLACK
+                    w.left.color = BLACK
+                    self._right_rotate(x.parent)
+                    x = self._root
+        x.color = BLACK
+
+    def _search(self, key: int) -> Node:
+        """
+        Procura um nó na árvore.
+
+        Parâmetros:
+        key: int - Valor do nó a ser procurado.
+        """
+        x = self._root
+        while x != self._nil and key != x.key:
+            if key < x.key:
+                x = x.left
+            else:
+                x = x.right
+        return x
 
     def traverse_in_order(self, x: Node, alt: int = 0) -> None:
         """

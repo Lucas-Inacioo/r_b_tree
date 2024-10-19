@@ -191,5 +191,140 @@ def test_node_str_representation():
     assert str(node_red) == '\033[91m10\033[0m'  # 91 é o código ANSI para vermelho
     assert str(node_black) == '\033[30m20\033[0m'  # 30 é o código ANSI para preto
 
+
+def test_removal_leaf_node():
+    """
+    Testa a remoção de um nó folha.
+    """
+    tree = RBTree()
+    keys = [20, 10, 30]
+    for key in keys:
+        tree.insert(key)
+
+    # Remove o nó folha (10)
+    tree.remove(10)
+
+    # Verifica se o nó foi removido
+    assert tree.root.left == tree.nil
+
+
+def test_removal_node_with_one_child():
+    """
+    Testa a remoção de um nó com um filho.
+    """
+    tree = RBTree()
+    keys = [20, 10, 30, 5]
+    for key in keys:
+        tree.insert(key)
+
+    # Remove o nó 10, que tem um filho (5)
+    tree.remove(10)
+
+    # Verifica se o nó 5 foi promovido
+    assert tree.root.left.key == 5
+    assert tree.root.left.parent == tree.root
+
+
+def test_removal_node_with_two_children():
+    """
+    Testa a remoção de um nó com dois filhos.
+    """
+    tree = RBTree()
+    keys = [20, 10, 30, 5, 15]
+    for key in keys:
+        tree.insert(key)
+
+    # Remove o nó 10, que tem dois filhos (5 e 15)
+    tree.remove(10)
+
+    # Verifica se o nó 15 substituiu o nó 10
+    assert tree.root.left.key == 15
+    assert tree.root.left.left.key == 5
+    assert tree.root.left.parent == tree.root
+
+
+def test_removal_root_node():
+    """
+    Testa a remoção do nó raiz.
+    """
+    tree = RBTree()
+    keys = [20, 10, 30]
+    for key in keys:
+        tree.insert(key)
+
+    # Remove a raiz (20)
+    tree.remove(20)
+
+    # Verifica se a nova raiz é 30
+    assert tree.root.key == 30
+
+
+def test_removal_nonexistent_node():
+    """
+    Testa a remoção de um nó que não existe na árvore.
+    """
+    tree = RBTree()
+    keys = [20, 10, 30]
+    for key in keys:
+        tree.insert(key)
+
+    # Tenta remover um nó inexistente (40)
+    tree.remove(40)
+
+    # A estrutura da árvore deve permanecer a mesma
+    assert tree.root.key == 20
+    assert tree.root.left.key == 10
+    assert tree.root.right.key == 30
+
+
+def test_multiple_removals():
+    """
+    Testa múltiplas remoções consecutivas.
+    """
+    tree = RBTree()
+    keys = [20, 10, 30, 5, 15, 25, 35]
+    for key in keys:
+        tree.insert(key)
+
+    # Remove vários nós
+    removals = [5, 15, 25, 35]
+    for key in removals:
+        tree.remove(key)
+
+    # Verifica a estrutura restante da árvore
+    assert tree.root.key == 20
+    assert tree.root.left.key == 10
+    assert tree.root.right.key == 30
+    assert tree.root.left.left == tree.nil
+    assert tree.root.left.right == tree.nil
+    assert tree.root.right.left == tree.nil
+    assert tree.root.right.right == tree.nil
+
+
+def test_removal_and_properties():
+    """
+    Testa se as propriedades da árvore rubro-negra são mantidas após remoções.
+    """
+    tree = RBTree()
+    keys = [10, 5, 20, 15, 25, 30]
+    for key in keys:
+        tree.insert(key)
+
+    # Remove um nó que causa rebalanceamento
+    tree.remove(5)
+    tree.remove(15)
+
+    # Verifica se a raiz é preta
+    assert tree.root.color == BLACK
+
+    # Verifica as propriedades de cor nos filhos
+    assert tree.root.left.key == 10
+    assert tree.root.right.key == 25
+    assert tree.root.left.color == BLACK
+    assert tree.root.right.color == BLACK
+    assert tree.root.right.right.key == 30
+    assert tree.root.right.right.color == RED
+
+
 if __name__ == "__main__":
     pytest.main()

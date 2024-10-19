@@ -22,9 +22,14 @@ def main() -> None:
     tree = RBTree()
 
     # Insere os valores 10, 20, 30, 15, 25, 35, 5, 1, 40, 50.
-    values = [10, 20, 30, 15, 25, 35, 5, 1, 40, 50]
+    values = [10, 20, 30, 15, 25, 35, 5, 1, 40, 50, 50]
     for value in values:
         tree.insert(value)
+
+    # Remove os valores 1, 5, 10, 50.
+    remove_values = [1, 5, 10, 50]
+    for value in remove_values:
+        tree.remove(value)
 
     # Imprime a árvore.
     tree.traverse_in_order(tree.root)
